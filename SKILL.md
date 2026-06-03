@@ -9,7 +9,7 @@ description: Produce HTML output instead of markdown for any agent task. Four le
 
 This skill encodes the four levels of HTML output, the patterns that work at each level, and the rules that keep agent-generated HTML from looking AI-slop.
 
-> **Credit:** Framework and use-case taxonomy from **Thariq Shihipar** ([@trq212](https://x.com/trq212)) of the Anthropic Claude Code team. Original article: [Using Claude Code — The Unreasonable Effectiveness of HTML](https://x.com/trq212/status/2052809885763747935). Examples gallery: [thariqs.github.io/html-effectiveness](https://thariqs.github.io/html-effectiveness/). This skill is one community implementation of his ideas — go read the source.
+> **Credit:** Framework and use-case taxonomy from **Thariq Shihipar** ([@trq212](https://x.com/trq212)) of the Anthropic Claude Code team. Original article: [Using Claude Code — The Unreasonable Effectiveness of HTML](https://claude.com/blog/using-claude-code-the-unreasonable-effectiveness-of-html). Examples gallery: [thariqs.github.io/html-effectiveness](https://thariqs.github.io/html-effectiveness/). This skill is one community implementation of his ideas — go read the source.
 
 ---
 
@@ -179,7 +179,7 @@ btn.addEventListener('click', () => {
 
 - One `.html` file. Inline `<style>` and `<script>`. No build step. No external CSS/JS deps except optional Google Fonts.
 - All assets either inline SVG or `data:` URLs. No `/img/foo.png` folders.
-- The file is the artifact — Jay (or the viewer) can email it, drop it in Slack, open it on a phone, archive it.
+- The file is the artifact — you can email it, drop it in Slack, open it on a phone, archive it.
 
 ### Anti-patterns to avoid
 
@@ -192,11 +192,11 @@ btn.addEventListener('click', () => {
 
 ---
 
-## Recipes (this session's HTML artifacts, generalised)
+## Recipes (common patterns)
 
 ### Recipe — Interactive Review (Level 3)
 
-For triaging N options visually with comments + status + clipboard export. Used in this session for hook variations and b-roll review.
+For triaging N options visually with comments + status + clipboard export.
 
 **Anatomy:**
 1. Topline seed block — show original input verbatim
@@ -207,10 +207,6 @@ For triaging N options visually with comments + status + clipboard export. Used 
 6. Optional secondary pickers (style, tag, mode)
 7. Live summary line at bottom (accumulates picks)
 8. **Export button** — builds structured directive prompt, copies to clipboard
-
-**Canonical samples:**
-- `C:/ROBO/agents/EDDO/output/hook-workshop-sample.html`
-- `C:/ROBO/agents/EDDO/output/broll-review-html-vs-markdown.html`
 
 ### Recipe — Session Recap (Level 1)
 
@@ -223,7 +219,7 @@ Render the current conversation as a clean static doc. Original `/html-it` use c
 4. **Artifacts** — file paths created/edited, clickable
 5. **Open threads** — anything unresolved
 
-**Save location:** `C:/ROBO/output/html-it/{YYYY-MM-DD_HHMM}_{slug}.html`. If a project is loaded via `coordinate`, also copy to the project folder.
+**Save location:** the current working directory (or a path the user specifies), named `{YYYY-MM-DD_HHMM}_{slug}.html`.
 
 ### Recipe — Comparison Explainer (Level 2)
 
@@ -240,38 +236,19 @@ For "X vs Y" lessons (Markdown vs HTML, before vs after). Side-by-side panels, i
 
 ## How to invoke
 
-### Inside Robo (Eddo or any agent)
+When the skill triggers (`/html-it`, "html-it", "html this", "render as html", "build me an html for X"):
 
-- User says `/html-it`, "html-it", "html this", "render as html", "build me an html for X"
-- Agent picks the level (1-4) based on the task
-- Generates a single `.html` file, saves to the right place, opens with `start ""` on Windows
-- Confirms the path back to the user
-
-### Community version (share with viewers)
-
-Public mirror at: **[github.com/robonuggets/html-it](https://github.com/robonuggets/html-it)** *(prep — push pending Jay's go)*
-
-Install prompt for users:
-```
-I'm giving you a skill called html-it. Get the files with:
-
-git clone https://github.com/robonuggets/html-it
-
-Follow the README to set it up.
-Recommend how it would best apply to my setup in plain language, and ask me
-a few questions to clarify my intent before installing it.
-```
-
-### Related skills
-
-- **`tweak`** — Inject a live tweak panel into any HTML file (5 or 10 sliders), bake selected values back into source CSS. Pairs with Level 3/4 outputs from `html-it`. Community version: [github.com/robonuggets/skills](https://github.com/robonuggets/skills).
-- **`master-slides`** — for slide-deck HTML specifically (Level 2). Different stylistic system (paper typography + isometric graphics).
+1. Pick the level (1-4) that matches the task.
+2. Generate a single self-contained `.html` file — inline CSS, JS, and SVG, no build step.
+3. Save it to the current working directory (or a path the user specifies), named `{YYYY-MM-DD_HHMM}_{slug}.html`.
+4. Open it in the default browser — `open` on macOS, `xdg-open` on Linux, `start ""` on Windows.
+5. Confirm the saved path back to the user.
 
 ---
 
 ## Rules
 
-- **Pick a level explicitly** at the top of the response: "Using html-it Level 3 (Two-Way Interactive)" — same upfront-skill-signal rule as packaging.
+- **Pick a level explicitly** at the top of the response: "Using html-it Level 3 (Two-Way Interactive)".
 - **One file. Always.** Inline CSS, inline JS, inline SVG. No asset folder. No build step.
 - **Mobile responsive by default.** Test at 360px and 1200px.
 - **Export button is mandatory at Level 3+.** Without it, an interactive HTML is a toy.
