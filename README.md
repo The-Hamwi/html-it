@@ -2,7 +2,7 @@
 
 A Claude skill that teaches your agent to produce **HTML output instead of markdown** — across four levels of capability.
 
-Based on [Thariq Shihipar](https://x.com/trq212)'s article [_Using Claude Code: The Unreasonable Effectiveness of HTML_](https://x.com/trq212/status/2052809885763747935). Go read the source — this skill is one community implementation of his ideas.
+Based on [Thariq Shihipar](https://x.com/trq212)'s article [_Using Claude Code: The Unreasonable Effectiveness of HTML_](https://claude.com/blog/using-claude-code-the-unreasonable-effectiveness-of-html). Go read the source — this skill is one community implementation of his ideas.
 
 Live examples gallery (Thariq's): **[thariqs.github.io/html-effectiveness](https://thariqs.github.io/html-effectiveness/)**
 
@@ -30,7 +30,7 @@ Each level adds capability and effort. Most agent output stops at Level 1 — th
 In your Claude Code project:
 
 ```bash
-git clone https://github.com/robonuggets/html-it ~/.claude/skills/html-it
+git clone https://github.com/The-Hamwi/html-it ~/.claude/skills/html-it
 ```
 
 Or for a project-specific install:
@@ -38,7 +38,7 @@ Or for a project-specific install:
 ```bash
 cd your-project
 mkdir -p .claude/skills
-git clone https://github.com/robonuggets/html-it .claude/skills/html-it
+git clone https://github.com/The-Hamwi/html-it .claude/skills/html-it
 ```
 
 Then in Claude Code, the skill triggers on:
@@ -79,17 +79,11 @@ The skill encodes:
 
 ---
 
-## Related skills
-
-- **[`tweak`](https://github.com/robonuggets/skills)** — Inject a live tweak panel into any HTML (5 or 10 sliders), bake selected values back into source CSS. Pairs naturally with Level 3/4 outputs from `html-it`.
-
----
-
 ## Credit
 
 All credit to **[Thariq Shihipar](https://x.com/trq212)** of the Anthropic Claude Code team for the framework and the use-case taxonomy. The four-level escalation is the maintainer's reading of his article — defer to his original write-up when in doubt.
 
-Article: [Using Claude Code — The Unreasonable Effectiveness of HTML](https://x.com/trq212/status/2052809885763747935)
+Article: [Using Claude Code — The Unreasonable Effectiveness of HTML](https://claude.com/blog/using-claude-code-the-unreasonable-effectiveness-of-html)
 Examples: [thariqs.github.io/html-effectiveness](https://thariqs.github.io/html-effectiveness/)
 
 ---
